@@ -14,8 +14,6 @@ services:
       - 5063:80
     depends_on:
       - rabbitmq
-    # networks:
-    #   - deliveggie-network
   deliveggie-product-service:
     image: deliveggie-product-service
     container_name: "deliveggie-product-service"
@@ -28,8 +26,6 @@ services:
     depends_on:
       - rabbitmq
       - mongo
-    # networks:
-    #   - deliveggie-network
 
   deliveggie-product-ui:
     image: deliveggie-product-ui
@@ -41,39 +37,21 @@ services:
       - 5070:80
     depends_on:
       - deliveggie-gateway-api
-    # networks:
-    #   - deliveggie-network
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: "deliveggie-products-rabbitmq"
     ports:
       - 5672:5672
       - 15672:15672
-    # networks:
-    #   - deliveggie-network
   mongo:
     image: mongo
     restart: always
     container_name: "deliveggie-mongodb"
     ports:
       - 27017:27017
-    # environment:
-    # MONGO_INITDB_ROOT_USERNAME: deliveggie
-    # MONGO_INITDB_ROOT_PASSWORD: deliveggie
-    # networks:
-    #   - deliveggie-network
   mongo-express:
     image: mongo-express
     container_name: "deliveggie-mongodb-ui"
     restart: always
     ports:
       - 27027:8081
-    # environment:
-    # ME_CONFIG_MONGODB_ADMINUSERNAME: deliveggie
-    # ME_CONFIG_MONGODB_ADMINPASSWORD: deliveggie
-    # networks:
-    #   - deliveggie-network
-
-# networks:
-#   deliveggie-network:
-#     driver: bridge
